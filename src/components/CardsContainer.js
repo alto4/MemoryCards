@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import Card from './Card';
 import memoryCards from './Cards';
 
-function CardsContainer() {
+function CardsContainer(props) {
   const [cardsClicked, setCardsClicked] = useState([]);
   const [cards, setCards] = useState(memoryCards);
 
@@ -27,30 +28,30 @@ function CardsContainer() {
     return cardsClicked.indexOf(target) > -1 ? true : false;
   };
 
+  // Handle click
   const cardClick = (e) => {
     let arr = [...cardsClicked];
     let clickedCard = e.currentTarget.getAttribute('data-id');
-    arr.push(clickedCard);
-    setCardsClicked(arr);
 
     // Check if card has already been clicked
-    checkCardSelection(clickedCard)
-      ? console.log('already clicked')
-      : console.log('not clicked');
+    if (checkCardSelection(clickedCard)) {
+      console.log('clear clicked cards array here!');
+      setCardsClicked([]);
+      props.resetScore();
+    } else {
+      props.incrementScore();
+
+      arr.push(clickedCard);
+      setCardsClicked(arr);
+    }
+
     shuffleCards();
   };
 
   return (
     <div className="cards-container">
       {cards.map((card, index) => (
-        <div
-          className="card"
-          key={index}
-          onClick={cardClick}
-          data-id={card.name}
-        >
-          <img src={card.imageURL} alt="" />
-        </div>
+        <Card key={index} card={card} cardClick={cardClick} />
       ))}
     </div>
   );
