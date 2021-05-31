@@ -3,10 +3,12 @@ import './App.css';
 import ScoreBoard from './components/ScoreBoard';
 import CardsContainer from './components/CardsContainer';
 import Footer from './components/Footer';
+import RulesModal from './components/RulesModal';
 
 function App() {
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
+  const [displayRules, setDisplayRules] = useState(false);
 
   const incrementScore = () => {
     setScore(score + 1);
@@ -23,7 +25,22 @@ function App() {
   return (
     <div>
       <ScoreBoard currentScore={score} highScore={highScore} />
-      <CardsContainer incrementScore={incrementScore} resetScore={resetScore} />
+      <button
+        onClick={() => {
+          setDisplayRules(!displayRules);
+        }}
+      >
+        {displayRules ? 'Play Game' : 'Show Rules'}
+      </button>
+
+      {displayRules && <RulesModal />}
+
+      {!displayRules && (
+        <CardsContainer
+          incrementScore={incrementScore}
+          resetScore={resetScore}
+        />
+      )}
       <Footer />
     </div>
   );

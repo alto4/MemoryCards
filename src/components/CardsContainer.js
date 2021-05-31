@@ -37,6 +37,7 @@ function CardsContainer(props) {
     if (checkCardSelection(clickedCard)) {
       console.log('clear clicked cards array here!');
       setCardsClicked([]);
+
       props.resetScore();
     } else {
       props.incrementScore();
