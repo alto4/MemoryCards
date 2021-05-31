@@ -6,6 +6,7 @@ function CardsContainer() {
   const [cards, setCards] = useState(memoryCards);
 
   // Use Fisher-Yates shuffle to randomize cards -> reverse through an array and swap each element with a random element that comes before it (with a lower index)
+  // REFERENCE: https://javascript.info/task/shuffle
   const shuffleCards = () => {
     let cardsArray = [...cards];
 
@@ -21,15 +22,21 @@ function CardsContainer() {
     setCards(cardsArray);
   };
 
-  const cardClick = (e) => {
-    console.log(e.currentTarget.getAttribute('data-id') + ' was clicked.');
+  // Check if card has already been clicked in current game
+  const checkCardSelection = (target) => {
+    return cardsClicked.indexOf(target) > -1 ? true : false;
+  };
 
+  const cardClick = (e) => {
     let arr = [...cardsClicked];
-    arr.push(e.currentTarget.getAttribute('data-id'));
+    let clickedCard = e.currentTarget.getAttribute('data-id');
+    arr.push(clickedCard);
     setCardsClicked(arr);
 
     // Check if card has already been clicked
-
+    checkCardSelection(clickedCard)
+      ? console.log('already clicked')
+      : console.log('not clicked');
     shuffleCards();
   };
 
