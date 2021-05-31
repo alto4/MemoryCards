@@ -1,4 +1,4 @@
-let cards = [
+let memoryCards = [
   { name: 'e1', imageURL: './e.JPG' },
   { name: 'f1', imageURL: './f.JPG' },
   { name: 'g1', imageURL: './g.JPG' },
@@ -10,4 +10,4 @@ let cards = [
   { name: 'f2', imageURL: './f2.JPG' },
 ];
 
-export default cards;
+export default memoryCards;
